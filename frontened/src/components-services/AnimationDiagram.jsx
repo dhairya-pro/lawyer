@@ -155,12 +155,27 @@ const contentItems = [
 export default function ContentSlider() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const intervalRef = useRef(null)
   const containerRef = useRef(null)
 
-  // Auto-rotate the slider with faster speed on hover
+  // Check for mobile screen size
   useEffect(() => {
-    const interval = isHovered ? 5000 : 5000; // Faster rotation on hover
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Auto-rotate the slider with faster speed on hover (only for desktop)
+  useEffect(() => {
+    if (isMobile) return
+
+    const interval = isHovered ? 5000 : 5000
     
     intervalRef.current = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % contentItems.length)
@@ -171,7 +186,7 @@ export default function ContentSlider() {
         clearInterval(intervalRef.current)
       }
     }
-  }, [isHovered])
+  }, [isHovered, isMobile])
 
   // Calculate positions for each card in a visible 5-card arc
   const getCardStyle = (index) => {
@@ -216,6 +231,30 @@ export default function ContentSlider() {
     }
   }
 
+  // Mobile grid layout component
+  const MobileGrid = () => (
+    <div className="grid grid-cols-2 gap-4 p-4">
+      {contentItems.map((item) => {
+        const Icon = item.icon
+        return (
+          <Link
+            key={item.id}
+            to={item.path}
+            className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+          >
+            <div className="p-4 flex flex-col items-center text-center">
+              <div className="p-3 rounded-full bg-[#BC5B44] text-white mb-3">
+                <Icon size={24} />
+              </div>
+              <h3 className="text-sm font-semibold text-[#0B1926]">{item.title}</h3>
+              <p className="text-xs text-gray-500 mt-1">{item.category}</p>
+            </div>
+          </Link>
+        )
+      })}
+    </div>
+  )
+
   return (
     <div className="w-full py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50 relative z-0">
       {/* Heading Section */}
@@ -228,95 +267,99 @@ export default function ContentSlider() {
         </p>
       </div>
 
-      <div
-        ref={containerRef}
-        className="relative h-[470px] w-full max-w-7xl mx-auto overflow-hidden bg-white rounded-2xl shadow-xl"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className="absolute w-full h-full flex items-center justify-center top-8">
-          <AnimatePresence mode="wait">
-            {contentItems.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={item.id}
-                  className="absolute w-[220px] h-[280px] rounded-xl overflow-hidden shadow-xl cursor-pointer"
-                  initial={getCardStyle(index)}
-                  animate={getCardStyle(index)}
-                  exit={getCardStyle(index)}
-                  transition={{
-                    type: "tween",
-                    duration: 0.5,
-                    ease: "easeInOut"
-                  }}
-                  onClick={() => setActiveIndex(index)}
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    marginLeft: "-110px",
-                    marginTop: "-140px",
-                    boxShadow: index === activeIndex 
-                      ? "0 20px 40px rgba(188, 91, 68, 0.2)" 
-                      : "0 10px 20px rgba(0,0,0,0.1)",
-                    zIndex: index === activeIndex ? 10 : 5
-                  }}
-                >
-                  <div className="relative w-full h-full bg-white">
-                    <div className="w-full h-1/2 flex flex-col items-center justify-center bg-gray-50">
-                      <div className={`p-4 rounded-full ${index === activeIndex ? "bg-[#BC5B44] text-white" : "bg-white text-[#0B1926]"} transition-colors duration-300 shadow-md`}>
-                        <Icon size={36} />
+      {isMobile ? (
+        <MobileGrid />
+      ) : (
+        <div
+          ref={containerRef}
+          className="relative h-[470px] w-full max-w-7xl mx-auto overflow-hidden bg-white rounded-2xl shadow-xl"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <div className="absolute w-full h-full flex items-center justify-center top-8">
+            <AnimatePresence mode="wait">
+              {contentItems.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.id}
+                    className="absolute w-[220px] h-[280px] rounded-xl overflow-hidden shadow-xl cursor-pointer"
+                    initial={getCardStyle(index)}
+                    animate={getCardStyle(index)}
+                    exit={getCardStyle(index)}
+                    transition={{
+                      type: "tween",
+                      duration: 0.5,
+                      ease: "easeInOut"
+                    }}
+                    onClick={() => setActiveIndex(index)}
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      marginLeft: "-110px",
+                      marginTop: "-140px",
+                      boxShadow: index === activeIndex 
+                        ? "0 20px 40px rgba(188, 91, 68, 0.2)" 
+                        : "0 10px 20px rgba(0,0,0,0.1)",
+                      zIndex: index === activeIndex ? 10 : 5
+                    }}
+                  >
+                    <div className="relative w-full h-full bg-white">
+                      <div className="w-full h-1/2 flex flex-col items-center justify-center bg-gray-50">
+                        <div className={`p-4 rounded-full ${index === activeIndex ? "bg-[#BC5B44] text-white" : "bg-white text-[#0B1926]"} transition-colors duration-300 shadow-md`}>
+                          <Icon size={36} />
+                        </div>
+                      </div>
+                      <div className={`absolute bottom-0 left-0 w-full p-4 ${index === activeIndex ? "bg-[#BC5B44] text-white" : "bg-white text-gray-800"} transition-colors duration-300`}>
+                        <h3 className="text-lg font-bold leading-tight">{item.title}</h3>
+                        <p className={`text-sm ${index === activeIndex ? "text-purple-100" : "text-gray-500"}`}>{item.category}</p>
+                        {index === activeIndex && (
+                          <Link
+                            to={item.path}
+                            className="inline-block mt-2 px-4 py-2 bg-white text-[#0B1926] text-sm font-medium rounded-full hover:bg-purple-50 transition-all duration-300 shadow-sm hover:shadow transform hover:scale-105 active:scale-95"
+                          >
+                            Learn More
+                          </Link>
+                        )}
                       </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 w-full p-4 ${index === activeIndex ? "bg-[#BC5B44] text-white" : "bg-white text-gray-800"} transition-colors duration-300`}>
-                      <h3 className="text-lg font-bold leading-tight">{item.title}</h3>
-                      <p className={`text-sm ${index === activeIndex ? "text-purple-100" : "text-gray-500"}`}>{item.category}</p>
-                      {index === activeIndex && (
-                        <Link
-                          to={item.path}
-                          className="inline-block mt-2 px-4 py-2 bg-white text-[#0B1926] text-sm font-medium rounded-full hover:bg-purple-50 transition-all duration-300 shadow-sm hover:shadow transform hover:scale-105 active:scale-95"
-                        >
-                          Learn More
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
 
-        {/* Navigation controls */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-4 z-10">
-          <div className="flex space-x-4">
-            <button 
-              className="p-2 rounded-full bg-white shadow-md hover:bg-[#BC5B44] hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 focus:outline-none"
-              onClick={() => setActiveIndex((prev) => (prev - 1 + contentItems.length) % contentItems.length)}
-              aria-label="Previous slide"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button 
-              className="p-2 rounded-full bg-white shadow-md hover:bg-[#BC5B44] hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 focus:outline-none"
-              onClick={() => setActiveIndex((prev) => (prev + 1) % contentItems.length)}
-              aria-label="Next slide"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+          {/* Navigation controls */}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-4 z-10">
+            <div className="flex space-x-4">
+              <button 
+                className="p-2 rounded-full bg-white shadow-md hover:bg-[#BC5B44] hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 focus:outline-none"
+                onClick={() => setActiveIndex((prev) => (prev - 1 + contentItems.length) % contentItems.length)}
+                aria-label="Previous slide"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button 
+                className="p-2 rounded-full bg-white shadow-md hover:bg-[#BC5B44] hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 focus:outline-none"
+                onClick={() => setActiveIndex((prev) => (prev + 1) % contentItems.length)}
+                aria-label="Next slide"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          {/* Current service title */}
+          <div className="absolute top-6 left-0 w-full text-center z-10">
+            <h2 className="text-3xl font-bold text-[#0B1926]">{contentItems[activeIndex].title}</h2>
           </div>
         </div>
-        
-        {/* Current service title */}
-        <div className="absolute top-6 left-0 w-full text-center z-10">
-          <h2 className="text-3xl font-bold text-[#0B1926]">{contentItems[activeIndex].title}</h2>
-        </div>
-      </div>
+      )}
     </div>
   )
 }

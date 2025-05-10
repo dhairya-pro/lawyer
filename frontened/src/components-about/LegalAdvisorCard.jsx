@@ -3,6 +3,27 @@ import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FaBalanceScale, FaHandshake, FaShieldAlt } from 'react-icons/fa';
 import profile from '../assets/profile.png'
+import about from '../assets/about.png'
+
+<style>
+{`
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-18px); }
+  100% { transform: translateY(0px); }
+}
+.animate-float {
+  animation: float 3.5s ease-in-out infinite;
+}
+@keyframes pulseShadow {
+  0%, 100% { box-shadow: 0 8px 32px 0 rgba(194,93,69,0.18); }
+  50% { box-shadow: 0 16px 48px 0 rgba(194,93,69,0.32); }
+}
+.animate-pulseShadow {
+  animation: pulseShadow 2.5s infinite;
+}
+`}
+</style>
 
 const LegalAdvisorHero = () => {
   const canvasRef = useRef(null);
@@ -81,7 +102,7 @@ const LegalAdvisorHero = () => {
   }, []);
 
   return (
-    <div className="w-full bg-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div className="w-full bg-white py-16 px-4 sm:px-6 lg:px-8 top-5 relative overflow-hidden">
       {/* Background canvas animation */}
       <canvas 
         ref={canvasRef} 
@@ -200,25 +221,18 @@ const LegalAdvisorHero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8, type: 'spring' }}
         >
-          <div className="relative flex items-center justify-center w-48 h-64 xs:w-56 xs:h-72 sm:w-64 sm:h-80 md:w-72 md:h-96 lg:w-[370px] lg:h-[370px]">
-            {/* Background Circle */}
+          <div className="relative flex items-center justify-center w-48 h-64 xs:w-56 xs:h-72 sm:w-64 sm:h-80 md:w-72 md:h-96 lg:w-[500px] lg:h-[500px]"
+           
+          >
             <motion.div 
-              className="absolute inset-0 flex items-center justify-center"
-              animate={{ scale: [1, 1.04, 1] }}
-              transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-              style={{ zIndex: 1 }}
-            >
-              <div className="w-40 h-40 xs:w-48 xs:h-48 sm:w-56 sm:h-56 md:w-64 md:h-96 lg:w-[340px] lg:h-[340px] rounded-full bg-[#c25d45]" />
-            </motion.div>
-            {/* Profile Image (fully visible, not cropped) */}
-            <motion.div 
-              className="relative flex items-center justify-center z-10 bottom-10 xs:bottom-12 sm:bottom-14 md:bottom-16 left-0 xs:left-2 sm:left-4"
+              className="relative flex items-center justify-center z-10 bottom-10 xs:bottom-12 sm:bottom-14 md:bottom-16 left-0 xs:left-2 sm:left-4 animate-float animate-pulseShadow top-2"
+              whileHover={{ scale: 1 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
               <img  
-                src={profile}
+                src={about}
                 alt="Legal Advisor"
-                className="w-40 h-56 xs:w-48 xs:h-64 sm:w-56 sm:h-72 md:w-80 md:h-96 lg:w-[300px] lg:h-[440px] object-contain object-center rounded-full"
+                className="w-48 h-64 xs:w-48 xs:h-64 sm:w-56 sm:h-72 md:w-80 md:h-96 lg:w-[400px] lg:h-[600px] object-contain object-center rounded-full"
                 style={{ background: 'transparent' }}
               />
             </motion.div>
