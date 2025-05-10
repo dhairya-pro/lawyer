@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../assets/LOGO.png'
+import { FaHome, FaUserTie, FaGavel, FaGraduationCap, FaEnvelope } from 'react-icons/fa';
+
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -146,35 +148,13 @@ const Navbar = () => {
         
         {/* Desktop Navigation with enhanced hover effects */}
         <div className="hidden md:flex items-center space-x-8">
-          <NavLink to="/about" isActive={isActive('/about')}>About</NavLink>
-          <NavLink to="/service" isActive={isActive('/service')}>Service</NavLink>
-          <NavLink to="/career" isActive={isActive('/career')}>Career</NavLink>
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 400, 
-              damping: 15 
-            }}
-          >
-            <Link 
-              to="/contact" 
-              className="relative overflow-hidden border border-black rounded-full px-8 py-2 group"
-            >
-              <span className="relative z-10 transition-colors duration-300 group-hover:text-black">Contact</span>
-              <motion.span 
-                className="absolute inset-0 bg-black"
-                initial={{ scaleX: 0 }}
-                whileHover={{ scaleX: 1 }}
-                transition={{ 
-                  duration: 0.35, 
-                  ease: [0.22, 1, 0.36, 1] 
-                }}
-                style={{ originX: 0 }}
-              ></motion.span>
-            </Link>
-          </motion.div>
+          <NavLink to="/" isActive={isActive('/')}> <FaHome className="inline mr-2 mb-1" /> Home </NavLink>
+          <NavLink to="/about" isActive={isActive('/about')}> <FaUserTie className="inline mr-2 mb-1" /> About </NavLink>
+          <NavLink to="/service" isActive={isActive('/service')}> <FaGavel className="inline mr-2 mb-1" /> Service </NavLink>
+          <NavLink to="/career" isActive={isActive('/career')}> <FaGraduationCap className="inline mr-2 mb-1" /> Career </NavLink>
+          <NavLink to="/contact" isActive={isActive('/contact')}>
+            <FaEnvelope className="inline mr-2 mb-1" /> Contact
+          </NavLink>
         </div>
         
         {/* Mobile Navigation Button with enhanced hover */}
@@ -266,10 +246,10 @@ const Navbar = () => {
               exit="closed"
               className="py-2"
             >
-              <MobileNavLink to="/about" isActive={isActive('/about')}>About</MobileNavLink>
-              <MobileNavLink to="/service" isActive={isActive('/service')}>Service</MobileNavLink>
-              <MobileNavLink to="/career" isActive={isActive('/career')}>Career</MobileNavLink>
-              <MobileNavLink to="/contact" isActive={isActive('/contact')}>Contact</MobileNavLink>
+              <MobileNavLink to="/about" isActive={isActive('/about')}> <FaUserTie className="inline mr-2 mb-1" /> About </MobileNavLink>
+              <MobileNavLink to="/service" isActive={isActive('/service')}> <FaGavel className="inline mr-2 mb-1" /> Service </MobileNavLink>
+              <MobileNavLink to="/career" isActive={isActive('/career')}> <FaGraduationCap className="inline mr-2 mb-1" /> Career </MobileNavLink>
+              <MobileNavLink to="/contact" isActive={isActive('/contact')}> <FaEnvelope className="inline mr-2 mb-1" /> Contact </MobileNavLink>
             </motion.div>
           </motion.div>
         )}
@@ -293,26 +273,16 @@ const NavLink = ({ to, children, isActive }) => {
         to={to} 
         className={`relative px-2 py-1 group ${isActive ? 'text-[#BC5B44]' : 'text-black'}`}
       >
-        <motion.span 
-          className="relative z-10"
-          whileHover={{ 
-            color: isActive ? "#BC5B44" : "#666",
-            textShadow: "0 0 1px rgba(0,0,0,0.1)"
-          }}
-        >
+        <span className="relative z-10">
           {children}
-        </motion.span>
-        <motion.span 
-          className="absolute bottom-0 left-0 w-full h-0.5 bg-[#BC5B44]"
-          initial={{ scaleX: isActive ? 1 : 0 }}
-          animate={{ scaleX: isActive ? 1 : 0 }}
-          whileHover={{ scaleX: 1 }}
-          transition={{ 
-            duration: 0.3, 
-            ease: [0.22, 1, 0.36, 1] 
+        </span>
+        <span 
+          className="absolute bottom-0 left-0 w-full h-0.5 bg-[#BC5B44] transition-transform duration-300"
+          style={{
+            transform: isActive ? 'scaleX(1)' : 'scaleX(0)',
+            transformOrigin: 'left',
           }}
-          style={{ originX: 0 }}
-        ></motion.span>
+        ></span>
       </Link>
     </motion.div>
   );

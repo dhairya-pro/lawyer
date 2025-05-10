@@ -59,10 +59,10 @@ const Footer = () => {
   
   // Quick links
   const quickLinks = [
+    { name: 'Home', url: '/' },
     { name: 'About Us', url: '/about' },
-    { name: 'Practice Areas', url: '/practice-areas' },
-    { name: 'Our Team', url: '/team' },
-    { name: 'Testimonials', url: '/testimonials' },
+    { name: 'Service', url: '/service' },
+    { name: 'Career', url: '/career' },
     { name: 'Contact Us', url: '/contact' }
   ];
 
@@ -78,13 +78,12 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
           >
-            {/* Logo and About Section */}
             <motion.div variants={itemVariants} className="space-y-6">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-[#BC5B44] rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">LF</span>
+                  <span className="text-white font-bold text-xl">JT</span>
                 </div>
-                <h3 className="text-2xl font-bold">LAW FIRM</h3>
+                <h3 className="text-2xl font-bold">Jimit Thakore</h3>
               </div>
               
               <p className="text-gray-400 leading-relaxed">
@@ -165,14 +164,13 @@ const Footer = () => {
                 <div className="flex items-center space-x-3">
                   <Phone className="w-5 h-5 text-[#BC5B44]" />
                   <div>
-                    <p className="text-gray-400">+91 99250 02031</p>
-                    <p className="text-gray-400">+91 79 4800 1468</p>
+                    <a href="tel:+918128257961" className="text-gray-400">+91 8128257961</a>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-[#BC5B44]" />
-                  <p className="text-gray-400">advocatepmmodi@gmail.com</p>
+                  <a href="mailto:thakorejimit5619@gmail.com" className="text-gray-400">thakorejimit5619@gmail.com</a>
                 </div>
                 
                 <div className="flex items-start space-x-3">
@@ -190,7 +188,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.98 }}
               >
                 <a 
-                  href="tel:+919925002031" 
+                  href="tel:+918128257961" 
                   className="inline-flex items-center space-x-2 bg-[#BC5B44] hover:bg-[#a04b37] text-white px-4 py-2 rounded transition-colors duration-300"
                 >
                   <Phone size={16} />

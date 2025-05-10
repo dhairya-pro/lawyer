@@ -24,13 +24,14 @@ import DebtRecovery from './services/DebtRecovery.jsx'
 import CompanyLawNCLT from './services/CompanyLawNCLT.jsx'
 import CyberLaw from './services/CyberLaw.jsx'
 import LegalAdvisory from './services/LegalAdvisory.jsx'
+import Homepage from './components-home/Homepage'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />, // Use MainLayout as the wrapper
     children: [
-      { path: "/", element: <App /> },
+      { path: "/", element: <Homepage /> },
       { path: "/about", element:<About/>},
       { path: "/contact", element: <ContactForm /> },
       { path: "/service", element: <Services /> },
