@@ -213,13 +213,12 @@ const LegalAdvisorHero = () => {
             {/* Profile Image (fully visible, not cropped) */}
             <motion.div 
               className="relative flex items-center justify-center z-10 bottom-10 xs:bottom-12 sm:bottom-14 md:bottom-16 left-0 xs:left-2 sm:left-4"
-              whileHover={{ scale: 1.04 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
               <img  
                 src={profile}
                 alt="Legal Advisor"
-                className="w-40 h-56 xs:w-48 xs:h-64 sm:w-56 sm:h-72 md:w-80 md:h-96 lg:w-[300px] lg:h-[440px] object-contain object-center"
+                className="w-40 h-56 xs:w-48 xs:h-64 sm:w-56 sm:h-72 md:w-80 md:h-96 lg:w-[300px] lg:h-[440px] object-contain object-center rounded-full"
                 style={{ background: 'transparent' }}
               />
             </motion.div>
