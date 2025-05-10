@@ -25,7 +25,8 @@ import CompanyLawNCLT from './services/CompanyLawNCLT.jsx'
 import CyberLaw from './services/CyberLaw.jsx'
 import LegalAdvisory from './services/LegalAdvisory.jsx'
 import Homepage from './components-home/Homepage'
-
+import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
+import TermsOfService from './pages/TermsOfService.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -53,6 +54,14 @@ const router = createBrowserRouter([
       {path:"/cyber-law" , element:<CyberLaw/>},
       {path:"/legal-advisory" , element:<LegalAdvisory/>},
     ],
+  },
+  {
+    path: "/privacy-policy",
+    element: <PrivacyPolicy />,
+  },
+  {
+    path: "/terms",
+    element: <TermsOfService />,
   },
 
 ]);

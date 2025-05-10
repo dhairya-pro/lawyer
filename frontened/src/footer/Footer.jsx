@@ -244,7 +244,7 @@ const Footer = () => {
             </p>
             
             <div className="flex items-center space-x-6">
-              <MotionLink to="/privacy" className="text-gray-500 hover:text-[#BC5B44] text-sm transition-colors duration-300">
+              <MotionLink to="/privacy-policy" className="text-gray-500 hover:text-[#BC5B44] text-sm transition-colors duration-300">
                 Privacy Policy
               </MotionLink>
               <MotionLink to="/terms" className="text-gray-500 hover:text-[#BC5B44] text-sm transition-colors duration-300">
