@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Card } from './ui/Card.jsx';
-import { Input } from '../Components/ui/Input.jsx';
-import { Textarea } from '../Components/ui/Textarea.jsx';
-import { Button } from '../Components/ui/Button.jsx';
+import { Input } from './ui/Input.jsx';
+import { Textarea } from './ui/Textarea.jsx';
+import { Button } from './ui/Button.jsx';
 import { Phone, Mail, MapPin, Clock, Scale, Send, Gavel, FileText, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
 
