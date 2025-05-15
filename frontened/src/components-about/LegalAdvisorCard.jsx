@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { FaBalanceScale, FaHandshake, FaShieldAlt } from 'react-icons/fa';
+import { FaBalanceScale, FaHandshake, FaShieldAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
 import profile from '../assets/profile.png'
 import about from '../assets/about.png'
 
@@ -155,11 +155,19 @@ const LegalAdvisorHero = () => {
           
           {/* Key services with icons */}
           <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-7"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-7"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.6 }}
           >
+            <a href="tel:+918128257961" className="flex items-center bg-white/50 backdrop-blur-sm p-2 rounded-lg shadow-sm hover:bg-white/70 transition-colors">
+              <FaPhone className="text-[#c25d45] mr-2 text-lg" />
+              <span className="text-sm font-medium">+91-8128257961</span>
+            </a>
+            <a href="mailto:thakorejimit5619@gmail.com" className="flex items-center bg-white/50 backdrop-blur-sm p-2 rounded-lg shadow-sm hover:bg-white/70 transition-colors">
+              <FaEnvelope className="text-[#c25d45] mr-2 text-lg" />
+              <span className="text-sm font-medium">thakorejimit5619@gmail.com</span>
+            </a>
             <div className="flex items-center bg-white/50 backdrop-blur-sm p-2 rounded-lg shadow-sm">
               <FaBalanceScale className="text-[#c25d45] mr-2 text-lg" />
               <span className="text-sm font-medium">Legal Representation</span>

@@ -5,7 +5,7 @@ import { Textarea } from './ui/Textarea.jsx';
 import { Button } from './ui/Button.jsx';
 import { Phone, Mail, MapPin, Clock, Scale, Send, Gavel, FileText, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
-
+import { axiosInstance } from '../axiosInstance.js';
 const ContactForm = () => {
     const [formData, setFormData] = useState({
         firstname: '',
@@ -28,12 +28,15 @@ const ContactForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus({ loading: true, message: '' });
-
-        // Simulating API call
-        setTimeout(() => {
-            setStatus({ loading: false, message: 'Your consultation request has been sent successfully!' });
-            setFormData({ firstname: '', lastname: '', email: '', phone: '', message: '' });
-        }, 1500);
+        try {
+            const response = await axiosInstance.post('/user/contact', formData);
+            if(response.status === 201){
+                setStatus({ loading: false, message: 'Your consultation request has been sent successfully!' });
+                setFormData({ firstname: '', lastname: '', email: '', phone: '', message: '' });
+            } 
+        } catch (error) {
+            setStatus({ loading: false, message: 'Failed to send consultation request. Please try again later.' });
+        }
     };
 
     return (

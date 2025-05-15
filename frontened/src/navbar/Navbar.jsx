@@ -563,7 +563,7 @@ const Navbar = () => {
   );
 };
 
-// Desktop Navigation Link Component with enhanced hover effects
+
 const NavLink = ({ to, children, isActive }) => {
   return (
     <motion.div
