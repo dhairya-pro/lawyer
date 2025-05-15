@@ -30,7 +30,7 @@ const legalServices = [
     description: "Expert defense representation for criminal cases",
     icon: Gavel,
     serviceType: "criminal",
-    image: "https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+    image: "https://galelawgroup.com/wp-content/uploads/2023/08/defenseattorneyduties.jpg"
   },
   { 
     id: 2,
@@ -84,7 +84,7 @@ const legalServices = [
     description: "Expert bail application services",
     icon: ShieldCheck,
     serviceType: "criminal",
-    image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1500&q=80"
+    image: "	https://blog.bakshiandassociates.com/wp-content/uploads/2024/05/Obtain-Anticipatory-Bail.jpeg"
   },
   { 
     id: 8,
