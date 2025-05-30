@@ -11,7 +11,7 @@ const disclaimerText = `The Bar Council of India does not permit advertisement o
 
 const MainLayout = () => {
     const location = useLocation();
-    const [showDisclaimer, setShowDisclaimer] = useState(true);
+    const [showDisclaimer, setShowDisclaimer] = useState(null);
 
     // Check if disclaimer has expired
     const checkDisclaimerExpiry = () => {
@@ -24,6 +24,7 @@ const MainLayout = () => {
                 return true;
             }
         }
+        setShowDisclaimer(true);
         return false;
     };
 
@@ -33,10 +34,7 @@ const MainLayout = () => {
 
     // Check disclaimer status on component mount
     useEffect(() => {
-        const hasValidDisclaimer = checkDisclaimerExpiry();
-        if (!hasValidDisclaimer) {
-            setShowDisclaimer(true);
-        }
+        checkDisclaimerExpiry();
     }, []);
 
     // Handle disclaimer acceptance
@@ -45,6 +43,11 @@ const MainLayout = () => {
         localStorage.setItem(DISCLAIMER_TIMESTAMP_KEY, currentTime.toString());
         setShowDisclaimer(false);
     };
+
+    if (showDisclaimer === null) {
+      // Don't render anything until the check is complete
+      return null;
+    }
 
     return (
       <div>

@@ -15,10 +15,7 @@ const connectDB = async () => {
       
         logger.info(chalk.blue.bold.italic(`Attempting to connect to MongoDB at ${process.env.DB_HOST}`));
 
-        const connectionInstance = await mongoose.connect(MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        const connectionInstance = await mongoose.connect(MONGODB_URI);
 
         logger.info(
             chalk.green.bold.italic(
