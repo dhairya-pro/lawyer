@@ -123,7 +123,7 @@ const CriminalDefense = () => {
                 <div 
                     className="absolute inset-0 z-0 bg-cover bg-center" 
                     style={{ 
-                        backgroundImage: "url('https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')",
+                        backgroundImage: "url('https://blog.ipleaders.in/wp-content/uploads/2019/10/criminal-lawyer-jpeg-500x500.jpeg')",
                         transform: `translateY(${scrollY * 0.5}px)`,
                         filter: 'brightness(0.4)'
                     }}

@@ -30,7 +30,7 @@ const legalServices = [
     description: "Expert defense representation for criminal cases",
     icon: Gavel,
     serviceType: "criminal",
-    image: "https://galelawgroup.com/wp-content/uploads/2023/08/defenseattorneyduties.jpg"
+    image: "https://blog.ipleaders.in/wp-content/uploads/2019/10/criminal-lawyer-jpeg-500x500.jpeg"
   },
   { 
     id: 2,
@@ -66,7 +66,7 @@ const legalServices = [
     description: "Compassionate family legal services",
     icon: Users,
     serviceType: "family",
-    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"
+    image: "https://media.istockphoto.com/id/1136317685/photo/separation-of-family-figure-cut-out.jpg?s=612x612&w=0&k=20&c=wiP_ts4AFUw2J1KgSbXVJLVc1O_naNS78LdB9bDt_g4="
   },
   { 
     id: 6,
@@ -75,7 +75,7 @@ const legalServices = [
     description: "Sensitive handling of divorce proceedings",
     icon: HeartCrack,
     serviceType: "family",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"
+    image: "https://myfitbrain.in/images/blogs/reasons-why-divorce-happens_1720618689.jpg"
   },
   { 
     id: 7,

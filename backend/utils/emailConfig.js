@@ -3,8 +3,8 @@ import nodemailer from 'nodemailer';
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "bankofbharuch@gmail.com",
-        pass: "mqnu kjmr sohk dtmz",
+        user: "jimitlawfirm@gmail.com",
+        pass : "kves clap zxiz yfgs",
     },
 });
 
@@ -13,7 +13,7 @@ export const sendContactEmail = async (userData) => {
     const { firstname, lastname, email, phone, message } = userData;
 
     const mailOptions = {
-        from: '"Jimit thakore" <bankofbharuch@gmail.com>',
+        from: '"Jimit thakore" <jimitlawfirm@gmail.com>',
         to: email,
         subject: "Thank You for Contacting us",
         text: `Dear ${firstname} ${lastname},
@@ -83,10 +83,10 @@ Note: This is an automated message. Please do not reply to this email.`,
 
 export const sendNotificationEmail = async (userData) => {
     const { firstname, lastname, email, phone, message } = userData;
-    const lawFirmEmail = "bankofbharuch@gmail.com"; // Your law firm's email
+    const lawFirmEmail = "jimitlawfirm@gmail.com"; // Your law firm's email
 
     const mailOptions = {
-        from: '"Law Firm Website" <bankofbharuch@gmail.com>',
+        from: '"Law Firm Website" <jimitlawfirm@gmail.com>',
         to: lawFirmEmail,
         subject: "New Contact Form Submission",
         text: `New Contact Form Submission
