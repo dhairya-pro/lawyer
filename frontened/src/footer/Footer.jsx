@@ -157,7 +157,10 @@ const Footer = () => {
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-5 h-5 text-[#BC5B44] mt-1" />
                   <div>
-                    <p className="text-gray-400">C-112, Supath-2 Complex, Nr.Juna Wadaj Bus Stand, Ashram Road, Ahmedabad, Gujarat, India - 380013</p>
+                    <p className="text-gray-400">66,Samasta Brahma Kshatriya Society, Narayan Nagar Road
+Ranna Park, Near Chandranagar Cross Road, Paldi.
+AHMEDABAD, GUJARAT 380007
+India</p>
                   </div>
                 </div>
                 
