@@ -9,10 +9,11 @@ const Homepage = () => {
     <div className='mt-20'>
          {/* <HeroSection/>  */}
         <LegalAdvisorHero/> 
+        <WhyChooseUs/>
         <ClientsBenefits/> 
         <Ourservices/>
         {/* <LegalServicesJourney/> */}
-        <WhyChooseUs/>
+       
     </div>
   )
 }

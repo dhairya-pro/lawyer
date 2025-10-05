@@ -148,7 +148,7 @@ const LegalAdvisorHero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.7 }}
           >
-            With over 15 years of experience in corporate and family law, I provide personalized 
+            With over 7 years of experience in corporate and family law, I provide personalized 
             legal solutions tailored to your unique situation. My practice focuses on achieving 
             the best possible outcomes while ensuring you understand every step of the process.
           </motion.p>
@@ -206,6 +206,10 @@ const LegalAdvisorHero = () => {
               className="bg-[#c25d45] hover:bg-[#b14a35] text-white text-sm font-medium px-6 py-2.5 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
+              //directly to call action button
+              onClick={() => {
+                window.location.href = 'tel:+918128257961';
+              }}
             >
               Free Consultation
             </motion.button>

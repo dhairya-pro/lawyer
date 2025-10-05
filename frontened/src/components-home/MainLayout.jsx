@@ -7,7 +7,10 @@ const DISCLAIMER_KEY = 'disclaimerAccepted';
 const DISCLAIMER_TIMESTAMP_KEY = 'disclaimerTimestamp';
 const DISCLAIMER_EXPIRY_TIME = 10 * 60 * 1000; // 10 minutes in milliseconds
 
-const disclaimerText = `The Bar Council of India does not permit advertisement or solicitation by advocates in any form or manner. By accessing this website, you expressly acknowledge and confirm that you are seeking information relating to Advocate Jimit Ankur Thakore of your own accord and without any solicitation, advertisement, or inducement from Advocate Jimit Ankur Thakore or any of his associates or representatives.\n\nAll content provided on this website is intended strictly for informational purposes and should not, under any circumstances, be construed as legal advice. Visitors should not act or refrain from acting upon information available on this website without seeking professional legal counsel.\n\nAdvocate Jimit Ankur Thakore expressly disclaims liability concerning actions taken or omitted based on any or all of the content provided herein.\n\nThe content of this website is the intellectual property of Advocate Jimit Ankur Thakore and may not be reproduced, distributed, transmitted, or modified without prior written consent.\n\nBy continuing to use this website, you acknowledge your acceptance and understanding of this disclaimer.`;
+const disclaimerText = `The Bar Council of India prohibits legal advertising. By accessing this website, you acknowledge that you are seeking information about Advocate Jimit Ankur Thakore voluntarily, without any solicitation or inducement.
+Content here is for general information only and does not constitute legal advice or create an advocate–client relationship. For specific legal concerns, please consult a qualified professional.
+Advocate Jimit Ankur Thakore is not liable for actions taken based on this content. All material is his intellectual property and may not be used without prior written consent.
+By using this site or clicking “I Accept,” you agree to this disclaimer.`;
 
 const MainLayout = () => {
     const location = useLocation();

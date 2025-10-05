@@ -217,10 +217,10 @@ const ClientsBenefits = () => {
 
         {/* Statistics with scroll-triggered counters */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 text-center reveal-on-scroll">
-          <ScrollCounter title="Cases Won" endValue={500} suffix="+" />
-          <ScrollCounter title="Happy Clients" endValue={1200} suffix="+" />
-          <ScrollCounter title="Years Experience" endValue={25} suffix="+" />
-          <ScrollCounter title="Expert Lawyers" endValue={30} suffix="+" />
+          <ScrollCounter title="Cases Won" endValue={50} suffix="+" />
+          <ScrollCounter title="Happy Clients" endValue={30} suffix="+" />
+          <ScrollCounter title="Years Experience" endValue={7} suffix="+" />
+          <ScrollCounter title="Expert Lawyers" endValue={3} suffix="+" />
         </div>
         
         {/* Call to action */}
