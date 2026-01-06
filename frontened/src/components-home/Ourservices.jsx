@@ -1,371 +1,166 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaBalanceScale, FaHandshake, FaHome, FaBriefcase, FaFileContract, FaGavel } from 'react-icons/fa';
-import hammer from '../assets/Hammer.png';
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  FaHeart,
+  FaHome,
+  FaGavel,
+  FaRegFileAlt,
+  FaMoneyCheckAlt,
+  FaUserShield,
+  FaPhoneAlt,
+  FaWhatsapp,
+} from "react-icons/fa";
+
+// ✅ Update these once (number / email / routes)
+const PHONE_E164 = "+918128257961";
+const WHATSAPP_NUMBER = "918128257961"; // wa.me without +
 
 const Ourservices = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
-  const containerRef = useRef(null);
-
   const services = [
     {
-      icon: <FaBalanceScale className="text-white text-lg" />,
-      title: "Experienced Legal Professional",
-      description: "With years of dedicated practice in the field, I bring substantial expertise to every case I handle."
+      title: "Divorce & Family Matters",
+      desc: "Divorce, maintenance, custody, and family disputes.",
+      help: "Common help: mutual consent, notices",
+      icon: <FaHeart className="text-white text-base" />,
+      href: "/service#family",
     },
     {
-      icon: <FaHandshake className="text-white text-lg" />,
-      title: "Family Law Specialist",
-      description: "Navigating sensitive family matters with compassion, discretion, and legal expertise to protect your interests."
+      title: "Civil & Property Disputes",
+      desc: "Partition, injunctions, possession, and title checks.",
+      help: "Common help: documentation review",
+      icon: <FaHome className="text-white text-base" />,
+      href: "/service#civil",
     },
     {
-      icon: <FaHome className="text-white text-lg" />,
-      title: "Real Estate Law",
-      description: "Comprehensive legal solutions for property transactions, disputes, and development projects."
+      title: "Criminal Defence",
+      desc: "Guidance from FIR to hearings and court representation.",
+      help: "Common help: case strategy, court",
+      icon: <FaUserShield className="text-white text-base" />,
+      href: "/service#criminal",
     },
     {
-      icon: <FaBriefcase className="text-white text-lg" />,
-      title: "Corporate Legal Services",
-      description: "Strategic legal counsel for businesses of all sizes, from startups to established corporations."
+      title: "Bail & Anticipatory Bail",
+      desc: "Urgent support for bail applications and next steps.",
+      help: "Common help: bail, anticipatory bail",
+      icon: <FaGavel className="text-white text-base" />,
+      href: "/service#bail",
     },
     {
-      icon: <FaFileContract className="text-white text-lg" />,
-      title: "Contract Negotiations",
-      description: "Expert drafting, review, and negotiation of contracts to protect your rights and interests."
+      title: "Cheque Bounce (NI Act 138)",
+      desc: "Notices, replies, filing, and recovery support.",
+      help: "Common help: legal notice & filing",
+      icon: <FaMoneyCheckAlt className="text-white text-base" />,
+      href: "/service#ni-act",
     },
     {
-      icon: <FaGavel className="text-white text-lg" />,
-      title: "Litigation Services",
-      description: "Powerful advocacy and representation in court to resolve disputes and protect your legal rights."
-    }
+      title: "Agreements & Legal Drafting",
+      desc: "Drafting/review for business and personal deals.",
+      help: "Common help: MOUs, affidavits",
+      icon: <FaRegFileAlt className="text-white text-base" />,
+      href: "/service#drafting",
+    },
   ];
 
-  // Number of cards to show per slide
-  const cardsPerSlide = 2;
-  const totalSlides = Math.ceil(services.length / cardsPerSlide);
-
-  // Touch handlers for mobile swipe
-  const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-  
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-  
-  const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 75) {
-      // Swipe left
-      nextSlide();
-    }
-    
-    if (touchEnd - touchStart > 75) {
-      // Swipe right
-      prevSlide();
-    }
-  };
-
-  const nextSlide = () => {
-    setActiveIndex((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setActiveIndex((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
-  };
-
-  const goToSlide = (index) => {
-    setActiveIndex(index);
-  };
-
-  // Auto-rotate slides when not hovered
-  useEffect(() => {
-    if (isHovered) return;
-    
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 6000);
-    
-    return () => clearInterval(interval);
-  }, [isHovered, activeIndex]);
-
-  // Parallax effect on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      
-      const scrollPosition = window.scrollY;
-      const containerPosition = containerRef.current.getBoundingClientRect().top + window.scrollY;
-      const offset = scrollPosition - containerPosition;
-      
-      if (offset > -500 && offset < 500) {
-        const hammerElement = document.getElementById('hammer-image');
-        if (hammerElement) {
-          hammerElement.style.transform = `translateY(${offset * 0.05}px) rotate(${offset * 0.02}deg)`;
-        }
-      }
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Variants for animations
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.2,
-        duration: 0.8
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.5 }
-    }
-  };
-
-  const slideVariants = {
-    enter: (direction) => ({
-      x: direction > 0 ? 500 : -500,
-      opacity: 0
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.5 }
-      }
-    },
-    exit: (direction) => ({
-      x: direction < 0 ? 500 : -500,
-      opacity: 0,
-      transition: {
-        x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.5 }
-      }
-    })
-  };
-
-  const [slideDirection, setSlideDirection] = useState(1);
-
-  // Update direction when changing slides
-  const updateSlideWithDirection = (newIndex) => {
-    const direction = newIndex > activeIndex ? 1 : -1;
-    setSlideDirection(direction);
-    setActiveIndex(newIndex);
-  };
-
   return (
-    <div className="mx-auto max-w-6xl px-2 sm:px-6 md:px-8 py-8">
-      <motion.div 
-        ref={containerRef}
+    <section className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8 py-10">
+      <motion.div
         className="bg-[#EDEAD9] rounded-3xl p-8 md:p-12 relative overflow-hidden"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.55 }}
       >
-        {/* Gavel image with animation */}
-        <motion.div 
-          className="absolute top-10 right-10"
-          initial={{ rotate: -10, y: -20, opacity: 0 }}
-          animate={{ rotate: 0, y: 0, opacity: 1 }}
-          transition={{ 
-            type: "spring", 
-            stiffness: 100, 
-            duration: 1,
-            delay: 0.5 
-          }}
-        >
-          <motion.img 
-            id="hammer-image"
-            src={hammer}
-            alt="Legal Gavel" 
-            className="w-24 h-24 object-contain"
-            whileHover={{ 
-              rotate: [0, -5, 5, -5, 0],
-              transition: { duration: 0.5 }
-            }}
-          />
-        </motion.div>
+        {/* Header */}
+        <div className="text-center mb-8">
+          <p className="text-[#BC5B44] text-xs font-semibold tracking-widest">
+            PRACTICE AREAS
+          </p>
 
-        {/* Section header with animation */}
-        <motion.div 
-          className="text-center mb-16"
-          variants={itemVariants}
-        >
-          <h2 className="text-3xl font-serif text-gray-900 mb-2 relative inline-block">
-            Our services
-            <motion.div 
-              className="absolute bottom-0 left-0 h-0.5 bg-[#BC5B44]"
-              initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              viewport={{ once: true }}
-            />
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mt-2">
+            How can we help?
           </h2>
-          <motion.p 
-            className="text-[#BC5B44] text-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-          >
-            Experience. Trust. Results.
-          </motion.p>
-        </motion.div>
 
-        {/* Slider container with improved animations */}
-        <div 
-          className="relative"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <AnimatePresence initial={false} custom={slideDirection} mode="wait">
-            <motion.div
-              key={activeIndex}
-              custom={slideDirection}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              className="flex flex-col md:flex-row gap-6 md:gap-8"
-            >
-              {services.slice(
-                activeIndex * cardsPerSlide, 
-                (activeIndex * cardsPerSlide) + cardsPerSlide
-              ).map((service, idx) => (
-                <ServiceCard 
-                  key={idx + (activeIndex * cardsPerSlide)} 
-                  service={service} 
-                  index={idx}
-                />
-              ))}
-            </motion.div>
-          </AnimatePresence>
+          <div className="flex justify-center mt-3 gap-2">
+            <span className="h-1 w-20 rounded-full bg-[#BC5B44]" />
+            <span className="h-1 w-10 rounded-full bg-[#b14a35]" />
+          </div>
 
-          {/* Hidden navigation buttons that appear on hover */}
-          <motion.div 
-            className="absolute top-1/2 left-0 transform -translate-y-1/2 w-full flex justify-between px-2 opacity-0 pointer-events-none md:pointer-events-auto"
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.button
-              onClick={() => {
-                setSlideDirection(-1);
-                prevSlide();
-              }}
-              className="bg-white rounded-full p-2 shadow-md text-[#BC5B44] hover:bg-[#BC5B44] hover:text-white transition-all duration-300 focus:outline-none z-10"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+          <p className="mt-4 text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
+            Choose a category below, or contact directly for quick guidance.
+          </p>
+
+          {/* Quick actions (top right on desktop, centered on mobile) */}
+          <div className="mt-5 flex flex-wrap justify-center md:justify-end gap-3">
+            <a
+              href={`tel:${PHONE_E164}`}
+              className="inline-flex items-center gap-2 rounded-full bg-[#BC5B44] px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#b14a35] transition"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </motion.button>
-            <motion.button
-              onClick={() => {
-                setSlideDirection(1);
-                nextSlide();
-              }}
-              className="bg-white rounded-full p-2 shadow-md text-[#BC5B44] hover:bg-[#BC5B44] hover:text-white transition-all duration-300 focus:outline-none z-10"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              <FaPhoneAlt className="text-white" />
+              Call
+            </a>
+
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-[#BC5B44] border border-[#BC5B44] hover:bg-[#fff8f7] transition"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </motion.button>
-          </motion.div>
+              <FaWhatsapp className="text-[#BC5B44]" />
+              WhatsApp
+            </a>
+          </div>
         </div>
 
-        {/* Enhanced dot indicators */}
-        <div className="flex justify-center mt-10 space-x-2">
-          {[...Array(totalSlides)].map((_, index) => (
-            <motion.button
-              key={index}
-              onClick={() => updateSlideWithDirection(index)}
-              className={`focus:outline-none transition-all duration-300 ${
-                activeIndex === index 
-                  ? 'bg-[#BC5B44] w-6 h-2 rounded-full' 
-                  : 'bg-[#BC5B44] opacity-40 w-2 h-2 rounded-full'
-              }`}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label={`Go to slide ${index + 1}`}
-            />
+        {/* Grid: 3 cols desktop, 2 cols tablet, 1 col mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {services.map((s, idx) => (
+            <motion.a
+              key={idx}
+              href={s.href}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, delay: idx * 0.04 }}
+              whileHover={{ y: -4 }}
+              className="group bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition border border-gray-200"
+            >
+              {/* Left accent strip */}
+              <div className="relative">
+                <span className="absolute -left-5 top-0 bottom-0 w-1.5 rounded-full bg-[#BC5B44]" />
+              </div>
+
+              <div className="flex items-start gap-4">
+                {/* Icon bubble */}
+                <div className="w-10 h-10 bg-[#BC5B44] rounded-full flex items-center justify-center shrink-0">
+                  {s.icon}
+                </div>
+
+                <div className="min-w-0">
+                  <h3 className="font-semibold text-gray-900 leading-snug">
+                    {s.title}
+                  </h3>
+
+                  <p className="mt-2 text-sm text-gray-600 leading-relaxed">
+                    {s.desc}
+                  </p>
+
+                  <p className="mt-2 text-xs text-gray-500">{s.help}</p>
+
+                  <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#fff8f7] px-3 py-1.5 text-sm font-semibold text-[#BC5B44] border border-[#f0e8e6]">
+                    Explore <span className="group-hover:translate-x-0.5 transition">→</span>
+                  </div>
+                </div>
+              </div>
+            </motion.a>
           ))}
         </div>
-      </motion.div>
-    </div>
-  );
-};
 
-// Enhanced Service Card Component
-const ServiceCard = ({ service, index }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  return (
-    <motion.div
-      className="bg-white rounded-lg p-6 flex-1"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ 
-        y: -5, 
-        boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-        transition: { duration: 0.2 }
-      }}
-    >
-      <div className="flex items-start mb-4">
-        <motion.div 
-          className="w-8 h-8 bg-[#BC5B44] rounded-full flex items-center justify-center mr-3 flex-shrink-0"
-          animate={{ 
-            scale: isHovered ? 1.1 : 1,
-            rotate: isHovered ? [0, -5, 5, 0] : 0
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          {service.icon}
-        </motion.div>
-        <h3 className="font-medium text-gray-800">{service.title}</h3>
-      </div>
-      <p className="text-sm text-gray-600 mb-4">
-        {service.description}
-      </p>
-      
-      {/* Animated learn more link that appears on hover */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
-        transition={{ duration: 0.2 }}
-      >
-        <a 
-          href="#" 
-          className="text-[#BC5B44] text-sm font-medium flex items-center group"
-        >
-          <span className="group-hover:underline">Learn more</span>
-          <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </a>
+        {/* Helper line */}
+        <p className="mt-8 text-center text-sm text-gray-600">
+          Not sure which category fits? WhatsApp your issue briefly and get next steps.
+        </p>
       </motion.div>
-    </motion.div>
+    </section>
   );
 };
 

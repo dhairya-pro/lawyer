@@ -1,257 +1,293 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 // eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion';
-import { FaBalanceScale, FaHandshake, FaShieldAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
-import profile from '../assets/profile.png'
-import about from '../assets/about.png'
+import { motion } from "framer-motion";
+import {
+  FaBalanceScale,
+  FaHandshake,
+  FaShieldAlt,
+  FaPhone,
+  FaEnvelope,
+  FaWhatsapp,
+  FaIdCard,
+  FaRegClock,
+  FaComments,
+} from "react-icons/fa";
 
-<style>
-{`
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-18px); }
-  100% { transform: translateY(0px); }
-}
-.animate-float {
-  animation: float 3.5s ease-in-out infinite;
-}
-@keyframes pulseShadow {
-  0%, 100% { box-shadow: 0 8px 32px 0 rgba(194,93,69,0.18); }
-  50% { box-shadow: 0 16px 48px 0 rgba(194,93,69,0.32); }
-}
-.animate-pulseShadow {
-  animation: pulseShadow 2.5s infinite;
-}
-`}
-</style>
+import about from "../assets/about.png"; // your hero image (same as old)
+
+const PHONE_E164 = "+918128257961";
+const PHONE_DISPLAY = "+91-8128257961";
+const EMAIL = "thakorejimit5619@gmail.com";
+const WHATSAPP_NUMBER = "918128257961"; // for wa.me (no +)
 
 const LegalAdvisorHero = () => {
   const canvasRef = useRef(null);
-  
-  // Background animation effect
+  const wrapRef = useRef(null);
+
+  // Background animation effect (optimized: uses hero container size, fewer particles)
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const wrap = wrapRef.current;
+    if (!canvas || !wrap) return;
+
+    const ctx = canvas.getContext("2d");
     let animationFrameId;
-    
-    // Set canvas dimensions
+
     const setCanvasDimensions = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const rect = wrap.getBoundingClientRect();
+      canvas.width = Math.max(1, Math.floor(rect.width));
+      canvas.height = Math.max(1, Math.floor(rect.height));
     };
-    
+
     setCanvasDimensions();
-    window.addEventListener('resize', setCanvasDimensions);
-    
-    // Legal symbols for animation
+
+    const ro = new ResizeObserver(() => setCanvasDimensions());
+    ro.observe(wrap);
+
     const symbols = [
-      { icon: '§', size: 14 },
-      { icon: '⚖', size: 18 },
-      { icon: '¶', size: 14 },
-      { icon: '†', size: 16 }
+      { icon: "§", size: 14 },
+      { icon: "⚖", size: 18 },
+      { icon: "¶", size: 14 },
+      { icon: "†", size: 16 },
     ];
-    
-    // Create particles
+
     const particles = [];
-    const particleCount = 30;
-    
+    const particleCount = 16;
+
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        speed: 0.2 + Math.random() * 0.3,
+        speed: 0.12 + Math.random() * 0.22,
         symbol: symbols[Math.floor(Math.random() * symbols.length)],
-        opacity: 0.05 + Math.random() * 0.1,
-        direction: Math.random() * Math.PI * 2
+        opacity: 0.05 + Math.random() * 0.08,
+        direction: Math.random() * Math.PI * 2,
       });
     }
-    
-    // Animation render function
+
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach(particle => {
-        // Update position
-        particle.x += Math.cos(particle.direction) * particle.speed;
-        particle.y += Math.sin(particle.direction) * particle.speed;
-        
-        // Boundary check and redirect
-        if (particle.x < 0 || particle.x > canvas.width) {
-          particle.direction = Math.PI - particle.direction;
-        }
-        if (particle.y < 0 || particle.y > canvas.height) {
-          particle.direction = -particle.direction;
-        }
-        
-        // Draw symbol
-        ctx.font = `${particle.symbol.size}px serif`;
-        ctx.fillStyle = `rgba(194, 93, 69, ${particle.opacity})`;
-        ctx.fillText(particle.symbol.icon, particle.x, particle.y);
+
+      particles.forEach((p) => {
+        p.x += Math.cos(p.direction) * p.speed;
+        p.y += Math.sin(p.direction) * p.speed;
+
+        if (p.x < 0 || p.x > canvas.width) p.direction = Math.PI - p.direction;
+        if (p.y < 0 || p.y > canvas.height) p.direction = -p.direction;
+
+        ctx.font = `${p.symbol.size}px serif`;
+        ctx.fillStyle = `rgba(194, 93, 69, ${p.opacity})`;
+        ctx.fillText(p.symbol.icon, p.x, p.y);
       });
-      
+
       animationFrameId = window.requestAnimationFrame(render);
     };
-    
+
     render();
-    
-    // Cleanup
+
     return () => {
       window.cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', setCanvasDimensions);
+      ro.disconnect();
     };
   }, []);
 
   return (
-    <div className="w-full bg-white py-16 px-4 sm:px-6 lg:px-8 top-5 relative overflow-hidden">
+    <section
+      ref={wrapRef}
+      className="relative w-full overflow-hidden bg-white py-14 sm:py-16 px-4 sm:px-6 lg:px-8"
+      aria-label="Hero section"
+    >
+      {/* ✅ IMPORTANT: Keep styles INSIDE component (works in React) */}
+      <style>{`
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-14px); }
+          100% { transform: translateY(0px); }
+        }
+        .animate-float {
+          animation: float 3.5s ease-in-out infinite;
+        }
+        @keyframes pulseShadow {
+          0%, 100% { box-shadow: 0 8px 32px 0 rgba(194,93,69,0.16); }
+          50% { box-shadow: 0 16px 48px 0 rgba(194,93,69,0.28); }
+        }
+        .animate-pulseShadow {
+          animation: pulseShadow 2.6s ease-in-out infinite;
+        }
+      `}</style>
+
       {/* Background canvas animation */}
-      <canvas 
-        ref={canvasRef} 
-        className="absolute top-0 left-0 w-full h-full pointer-events-none"
-        style={{ opacity: 0.7 }}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        style={{ opacity: 0.65 }}
+        aria-hidden="true"
       />
-      
+
       {/* Decorative elements */}
-      <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-[#c25d45] opacity-5"></div>
-      <div className="absolute bottom-10 right-10 w-48 h-48 rounded-full bg-[#c25d45] opacity-5"></div>
-      <div className="absolute top-1/2 left-1/4 w-24 h-24 rounded-full bg-gray-200 opacity-10"></div>
-      
-      <motion.div 
-        className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between relative z-10 gap-10 md:gap-0"
+      <div className="absolute -top-10 left-6 h-28 w-28 rounded-full bg-[#c25d45] opacity-[0.06]" />
+      <div className="absolute bottom-8 right-6 h-44 w-44 rounded-full bg-[#c25d45] opacity-[0.06]" />
+      <div className="absolute top-1/2 left-1/4 h-20 w-20 -translate-y-1/2 rounded-full bg-gray-200 opacity-[0.12]" />
+
+      <motion.div
+        className="relative z-10 mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 items-center gap-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.7 }}
       >
-        {/* Left side content */}
-        <motion.div 
-          className="w-full md:w-1/2 md:pr-8 mb-8 md:mb-0"
-          initial={{ opacity: 0, x: -30 }}
+        {/* LEFT SIDE */}
+        <motion.div
+          className="order-2 md:order-1"
+          initial={{ opacity: 0, x: -24 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3, duration: 0.7 }}
+          transition={{ delay: 0.15, duration: 0.6 }}
         >
-          <div className="flex items-baseline mb-1">
-            <h2 className="text-3xl sm:text-4xl font-normal text-gray-900">Meet, </h2>
-            <h2 className="text-3xl sm:text-4xl font-normal text-[#c25d45] ml-2">Jimit Thakor</h2>
-          </div>
-          
-          <h3 className="text-2xl sm:text-3xl font-normal text-gray-900 mt-2 mb-3">
-            Your trusted Legal advisor
-          </h3>
-          
-          <p className="text-base text-gray-700 italic mt-2 mb-5">
-            "Committed to Justice. Dedicated to You"
+          {/* ✅ Updated headline (no comma, no duplication, better SEO) */}
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-gray-900">
+            Advocate <span className="text-[#c25d45]">Jimit Thakore</span>
+          </h1>
+
+          {/* ✅ No Ahmedabad mention */}
+          <p className="mt-3 text-lg sm:text-xl text-gray-800">
+            Civil, Criminal, Family &amp; Property Matters
           </p>
-          
-          {/* Added explanation text */}
-          <motion.p 
-            className="text-base text-gray-700 mb-5 leading-relaxed"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.7 }}
-          >
-            With over 7 years of experience in corporate and family law, I provide personalized 
-            legal solutions tailored to your unique situation. My practice focuses on achieving 
-            the best possible outcomes while ensuring you understand every step of the process.
-          </motion.p>
-          
-          {/* Key services with icons */}
-          <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-7"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
-          >
-            <a href="tel:+918128257961" className="flex items-center bg-white/50 backdrop-blur-sm p-2 rounded-lg shadow-sm hover:bg-white/70 transition-colors">
-              <FaPhone className="text-[#c25d45] mr-2 text-lg" />
-              <span className="text-sm font-medium">+91-8128257961</span>
+
+          {/* ✅ Novice-friendly 1-liner */}
+          <p className="mt-4 text-base text-gray-700 leading-relaxed max-w-xl">
+            Clear guidance, strong representation, and timely updates—so each
+            step stays simple and transparent.
+          </p>
+
+          {/* ✅ Trust badges (8+ years) */}
+          <div className="mt-5 flex flex-wrap gap-2">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#fff8f7] px-3 py-1.5 text-xs text-gray-700 shadow-sm">
+              <FaRegClock className="text-[#c25d45]" /> 8+ Years Experience
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#fff8f7] px-3 py-1.5 text-xs text-gray-700 shadow-sm">
+              <FaIdCard className="text-[#c25d45]" /> Bar Council Registered
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#fff8f7] px-3 py-1.5 text-xs text-gray-700 shadow-sm">
+              <FaComments className="text-[#c25d45]" /> In-person &amp; Online
+            </span>
+          </div>
+
+          {/* ✅ Contact actions (Call + WhatsApp primary; email secondary) */}
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl">
+            <a
+              href={`tel:${PHONE_E164}`}
+              className="flex items-center justify-center gap-2 rounded-xl bg-white/70 backdrop-blur-sm px-4 py-3 shadow-sm hover:bg-white/90 transition"
+            >
+              <FaPhone className="text-[#c25d45]" />
+              <span className="text-sm font-medium text-gray-900">
+                Call {PHONE_DISPLAY}
+              </span>
             </a>
-            <a href="mailto:thakorejimit5619@gmail.com" className="flex items-center bg-white/50 backdrop-blur-sm p-2 rounded-lg shadow-sm hover:bg-white/70 transition-colors">
-              <FaEnvelope className="text-[#c25d45] mr-2 text-lg" />
-              <span className="text-sm font-medium">thakorejimit5619@gmail.com</span>
+
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center gap-2 rounded-xl bg-white/70 backdrop-blur-sm px-4 py-3 shadow-sm hover:bg-white/90 transition"
+            >
+              <FaWhatsapp className="text-[#c25d45]" />
+              <span className="text-sm font-medium text-gray-900">WhatsApp</span>
             </a>
-            <div className="flex items-center bg-white/50 backdrop-blur-sm p-2 rounded-lg shadow-sm">
-              <FaBalanceScale className="text-[#c25d45] mr-2 text-lg" />
-              <span className="text-sm font-medium">Legal Representation</span>
+
+            <a
+              href={`mailto:${EMAIL}`}
+              className="sm:col-span-2 flex items-center justify-center gap-2 rounded-xl bg-white/60 backdrop-blur-sm px-4 py-3 shadow-sm hover:bg-white/85 transition"
+            >
+              <FaEnvelope className="text-[#c25d45]" />
+              <span className="text-sm font-medium text-gray-900">{EMAIL}</span>
+            </a>
+          </div>
+
+          {/* ✅ Practice areas (clear labels for novices) */}
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl">
+            <div className="flex items-center gap-2 rounded-xl bg-white/60 backdrop-blur-sm px-4 py-3 shadow-sm">
+              <FaHandshake className="text-[#c25d45]" />
+              <span className="text-sm font-medium text-gray-900">
+                Family &amp; Divorce
+              </span>
             </div>
-            <div className="flex items-center bg-white/50 backdrop-blur-sm p-2 rounded-lg shadow-sm">
-              <FaHandshake className="text-[#c25d45] mr-2 text-lg" />
-              <span className="text-sm font-medium">Mediation Services</span>
+
+            <div className="flex items-center gap-2 rounded-xl bg-white/60 backdrop-blur-sm px-4 py-3 shadow-sm">
+              <FaBalanceScale className="text-[#c25d45]" />
+              <span className="text-sm font-medium text-gray-900">
+                Civil &amp; Property
+              </span>
             </div>
-            <div className="flex items-center bg-white/50 backdrop-blur-sm p-2 rounded-lg shadow-sm">
-              <FaShieldAlt className="text-[#c25d45] mr-2 text-lg" />
-              <span className="text-sm font-medium">Legal Protection</span>
+
+            <div className="flex items-center gap-2 rounded-xl bg-white/60 backdrop-blur-sm px-4 py-3 shadow-sm">
+              <FaShieldAlt className="text-[#c25d45]" />
+              <span className="text-sm font-medium text-gray-900">
+                Criminal Defence
+              </span>
             </div>
-          </motion.div>
-          
-          {/* Credentials badge */}
-          <motion.div 
-            className="flex items-center mb-7"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9, duration: 0.6 }}
-          >
-            <div className="bg-white/70 backdrop-blur-sm rounded-full py-1.5 px-4 flex items-center shadow-sm">
-              <span className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2.5"></span>
-              <span className="text-xs font-medium text-gray-700">Licensed Professional • Bar Certified</span>
-            </div>
-          </motion.div>
-          
-          {/* CTA buttons */}
-          <motion.div 
-            className="flex flex-wrap gap-3"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1, duration: 0.5 }}
-          >
-            <motion.button 
-              className="bg-[#c25d45] hover:bg-[#b14a35] text-white text-sm font-medium px-6 py-2.5 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              //directly to call action button
+          </div>
+
+          {/* ✅ CTAs (replace “Free Consultation” -> “Request Consultation”) */}
+          <div className="mt-7 flex flex-wrap gap-3">
+            <motion.button
+              className="bg-[#c25d45] hover:bg-[#b14a35] text-white text-sm font-medium px-6 py-3 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => {
-                window.location.href = 'tel:+918128257961';
+                window.location.href = `tel:${PHONE_E164}`;
               }}
             >
-              Free Consultation
+              Request Consultation
             </motion.button>
-            
-            <motion.button 
-              className="border border-[#c25d45] text-[#c25d45] hover:bg-[#fff8f7] text-sm font-medium px-6 py-2.5 rounded-full transition-colors duration-300 shadow-sm hover:shadow-md"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
+
+            <motion.button
+              className="border border-[#c25d45] text-[#c25d45] hover:bg-[#fff8f7] text-sm font-medium px-6 py-3 rounded-full transition-colors duration-300 shadow-sm hover:shadow-md"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => {
-                window.location.href = '/service';
+                window.location.href = "/service";
               }}
             >
-              View Services
+              View Practice Areas
             </motion.button>
-          </motion.div>
+          </div>
+
+          {/* ✅ Single disclaimer (no duplication) */}
+          <p className="mt-3 text-xs text-gray-500 max-w-xl">
+            Information on this website is for general purposes and does not
+            constitute legal advice.
+          </p>
         </motion.div>
-        
-        <motion.div 
-          className="relative w-full md:w-1/2 flex justify-center md:justify-end z-20"
-          initial={{ opacity: 0, y: 40 }}
+
+        {/* RIGHT SIDE (your existing image design) */}
+        <motion.div
+          className="order-1 md:order-2 flex justify-center md:justify-end z-20"
+          initial={{ opacity: 0, y: 26 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8, type: 'spring' }}
+          transition={{ delay: 0.2, duration: 0.7, type: "spring" }}
         >
-          <div className="relative flex items-center justify-center w-48 h-64 xs:w-56 xs:h-72 sm:w-64 sm:h-80 md:w-72 md:h-96 lg:w-[500px] lg:h-[500px]"
-           
-          >
-            <motion.div 
-              className="relative flex items-center justify-center z-10 bottom-10 xs:bottom-12 sm:bottom-14 md:bottom-16 left-0 xs:left-2 sm:left-4 animate-float animate-pulseShadow top-2"
+          <div className="relative flex items-center justify-center w-[280px] h-[320px] sm:w-[340px] sm:h-[380px] lg:w-[520px] lg:h-[520px]">
+            {/* Accent circle behind image */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="h-[85%] w-[85%] rounded-full bg-[#c25d45]" />
+            </div>
+
+            <motion.div
+              className="relative z-10 animate-float animate-pulseShadow rounded-full p-2 bg-white/20"
               whileHover={{ scale: 1 }}
-              transition={{ type: 'spring', stiffness: 300 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              <img  
+              <img
                 src={about}
-                alt="Legal Advisor"
-                className="w-48 h-64 xs:w-48 xs:h-64 sm:w-56 sm:h-72 md:w-80 md:h-96 lg:w-[400px] lg:h-[600px] object-contain object-center rounded-full"
-                style={{ background: 'transparent' }}
+                alt="Advocate Jimit Thakore"
+                className="w-[240px] h-[300px] sm:w-[290px] sm:h-[350px] lg:w-[420px] lg:h-[520px] object-contain object-center"
+                style={{ background: "transparent" }}
+                loading="eager"
               />
             </motion.div>
           </div>
         </motion.div>
       </motion.div>
-    </div>
+    </section>
   );
 };
 
