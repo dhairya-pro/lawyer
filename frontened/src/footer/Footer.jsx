@@ -7,11 +7,11 @@ import {
   MapPin,
   Clock,
   Facebook,
-  Instagram,
   Linkedin,
   ArrowRight,
   ChevronUp,
 } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa'; // ✅ REAL WhatsApp icon
 
 // Create a motion version of the React Router Link
 const MotionLink = motion(Link);
@@ -40,20 +40,30 @@ const Footer = () => {
 
   // Scroll to top function
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // ✅ UPDATED: Social media links (Only Facebook, LinkedIn, WhatsApp)
-  // Note: WhatsApp uses Instagram icon here (since lucide-react doesn't provide WhatsApp by default in this set).
-  // If you want a real WhatsApp icon, tell me which icon library you use (react-icons/fa etc).
+  // ✅ UPDATED: Correct address (used in text + map)
+  const addressText =
+    '66, Samasta Brahma Kshatriya Society, Narayan Nagar Road, Ranna Park, Near Chandranagar Cross Road, Paldi, Ahmedabad, Gujarat 380007, India';
+
+  // ✅ UPDATED: Map embed based on address (no wrong pinned area)
+  const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(
+    addressText
+  )}&output=embed`;
+
+  // ✅ UPDATED: Directions based on address
+  const directionsUrl = `https://www.google.com/maps?q=${encodeURIComponent(
+    addressText
+  )}`;
+
+  // ✅ UPDATED: Social media links (only Facebook, LinkedIn, WhatsApp)
+  // Replace /facebook and /linkedin with real external URLs if you have them.
   const socialLinks = [
-    { icon: <Facebook size={20} />, name: 'Facebook', url: '/facebook' },
-    { icon: <Linkedin size={20} />, name: 'LinkedIn', url: '/linkedin' },
+    { icon: <Facebook size={20} />, name: 'Facebook', url: '/facebook', external: false },
+    { icon: <Linkedin size={20} />, name: 'LinkedIn', url: '/linkedin', external: false },
     {
-      icon: <Instagram size={20} />,
+      icon: <FaWhatsapp size={20} />,
       name: 'WhatsApp',
       url: 'https://wa.me/918128257961',
       external: true,
@@ -69,18 +79,6 @@ const Footer = () => {
     { name: 'Contact Us', url: '/contact' },
   ];
 
-  // ✅ UPDATED: Correct address and map query
-  const addressText =
-    '66, Samasta Brahma Kshatriya Society, Narayan Nagar Road, Ranna Park, Near Chandranagar Cross Road, Paldi, Ahmedabad, Gujarat 380007, India';
-
-  const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(
-    addressText
-  )}&output=embed`;
-
-  const directionsUrl = `https://www.google.com/maps?q=${encodeURIComponent(
-    addressText
-  )}`;
-
   return (
     <div className="mx-4 sm:mx-6 lg:mx-8 mt-12">
       <footer className="bg-[#0B1926] text-white pt-16 relative overflow-hidden rounded-tl-3xl rounded-tr-3xl">
@@ -92,6 +90,7 @@ const Footer = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
           >
+            {/* Brand */}
             <motion.div variants={itemVariants} className="space-y-6">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-[#BC5B44] rounded-lg flex items-center justify-center">
@@ -100,7 +99,7 @@ const Footer = () => {
                 <h3 className="text-2xl font-bold">Jimit Thakore</h3>
               </div>
 
-              {/* ✅ optimized copy (shorter + clearer) */}
+              {/* ✅ optimized shorter copy */}
               <p className="text-gray-400 leading-relaxed">
                 Professional legal guidance focused on clarity, practical next steps, and respectful communication.
               </p>
@@ -121,7 +120,7 @@ const Footer = () => {
               </motion.div>
             </motion.div>
 
-            {/* Social Media and Quick Links */}
+            {/* Connect + Quick Links */}
             <motion.div variants={itemVariants} className="space-y-6">
               <h3 className="text-xl font-bold mb-6 border-b border-gray-800 pb-2">
                 Connect With Us
@@ -129,7 +128,6 @@ const Footer = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 {socialLinks.map((social, index) => {
-                  // ✅ external links open in new tab
                   if (social.external) {
                     return (
                       <motion.a
@@ -184,7 +182,7 @@ const Footer = () => {
               </div>
             </motion.div>
 
-            {/* Contact Information */}
+            {/* Contact Info */}
             <motion.div variants={itemVariants} className="space-y-6">
               <h3 className="text-xl font-bold mb-6 border-b border-gray-800 pb-2">
                 Contact Information
@@ -194,7 +192,6 @@ const Footer = () => {
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-5 h-5 text-[#BC5B44] mt-1" />
                   <div>
-                    {/* ✅ formatted + readable */}
                     <p className="text-gray-400 leading-relaxed">
                       66, Samasta Brahma Kshatriya Society,
                       <br />
@@ -209,11 +206,9 @@ const Footer = () => {
 
                 <div className="flex items-center space-x-3">
                   <Phone className="w-5 h-5 text-[#BC5B44]" />
-                  <div>
-                    <a href="tel:+918128257961" className="text-gray-400 hover:text-white transition">
-                      +91 8128257961
-                    </a>
-                  </div>
+                  <a href="tel:+918128257961" className="text-gray-400 hover:text-white transition">
+                    +91 8128257961
+                  </a>
                 </div>
 
                 <div className="flex items-center space-x-3">
@@ -236,7 +231,8 @@ const Footer = () => {
                 </div>
               </div>
 
-              <motion.div className="pt-4 flex flex-wrap gap-3" whileHover={{}} whileTap={{}}>
+              {/* ✅ Call + WhatsApp buttons */}
+              <motion.div className="pt-4 flex flex-wrap gap-3">
                 <motion.a
                   href="tel:+918128257961"
                   className="inline-flex items-center space-x-2 bg-[#BC5B44] hover:bg-[#a04b37] text-white px-4 py-2 rounded transition-colors duration-300"
@@ -247,7 +243,6 @@ const Footer = () => {
                   <span>Call Now</span>
                 </motion.a>
 
-                {/* ✅ WhatsApp CTA */}
                 <motion.a
                   href="https://wa.me/918128257961"
                   target="_blank"
@@ -256,18 +251,17 @@ const Footer = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <Instagram size={16} />
+                  <FaWhatsapp size={16} />
                   <span>WhatsApp</span>
                 </motion.a>
               </motion.div>
             </motion.div>
 
-            {/* Location Map */}
+            {/* Map */}
             <motion.div variants={itemVariants} className="space-y-6">
               <h3 className="text-xl font-bold mb-6 border-b border-gray-800 pb-2">Our Location</h3>
 
               <div className="relative h-64 rounded-lg overflow-hidden">
-                {/* ✅ UPDATED embed to match correct address */}
                 <iframe
                   src={mapEmbedUrl}
                   width="100%"
@@ -281,7 +275,6 @@ const Footer = () => {
               </div>
 
               <motion.div className="pt-2" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                {/* ✅ UPDATED directions link */}
                 <a
                   href={directionsUrl}
                   target="_blank"
