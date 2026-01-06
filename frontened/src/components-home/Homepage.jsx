@@ -2,14 +2,14 @@ import React from 'react'
 import HeroSection from './HeroSection'
 import ClientsBenefits from './ClientsBenefits'
 import Ourservices from './Ourservices'
-import WhyChooseUs from './WhyChooseUs'
+import WhyChooseUs from './WhyChooseFAQ'
 import LegalAdvisorHero from '../components-about/LegalAdvisorCard'
 const Homepage = () => {
   return (
     <div className='mt-20'>
          {/* <HeroSection/>  */}
         <LegalAdvisorHero/> 
-        <WhyChooseUs/>
+        <WhyChooseFAQ/>
         <ClientsBenefits/> 
         <Ourservices/>
         {/* <LegalServicesJourney/> */}
