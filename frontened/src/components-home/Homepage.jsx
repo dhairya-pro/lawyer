@@ -2,7 +2,7 @@ import React from 'react'
 import HeroSection from './HeroSection'
 import ClientsBenefits from './ClientsBenefits'
 import Ourservices from './Ourservices'
-import WhyChooseUs from './WhyChooseFAQ'
+import WhyChooseFAQ from './WhyChooseFAQ'
 import LegalAdvisorHero from '../components-about/LegalAdvisorCard'
 const Homepage = () => {
   return (
