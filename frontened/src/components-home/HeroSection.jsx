@@ -143,11 +143,12 @@ const HeroSection = () => {
               </a>
 
               <a
-                href="/service"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#BC5B44] px-6 py-3 text-[#BC5B44] text-sm font-semibold hover:bg-[#BC5B44]/5 transition"
-              >
-                View Practice Areas
-              </a>
+  href="#practice-areas"
+  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#BC5B44] px-6 py-3 text-[#BC5B44] text-sm font-semibold hover:bg-[#BC5B44]/5 transition"
+>
+  View Practice Areas
+</a>
+
             </div>
 
             {/* Disclaimer line */}
