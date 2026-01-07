@@ -1,156 +1,203 @@
 import React from 'react';
 import { motion, useInView } from 'framer-motion';
-import justice1 from '../assets/justice-final.png';
+import {
+  Phone,
+  Mail,
+  MessageCircle, // WhatsApp-like icon (lucide)
+  BadgeCheck,
+  Clock,
+  Video,
+  ArrowRight
+} from 'lucide-react';
+
+import profile from '../assets/profile.png'; // ✅ Use your portrait cutout here
 
 const HeroSection = () => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <div ref={ref} className="relative w-full bg-white overflow-hidden py-10 sm:py-8 md:py-12 px-4 md:px-8">
-     
-     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <motion.span
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-          transition={{ duration: 1 }}
-          className="text-[15vw] sm:text-[18vw] md:text-[20vw] font-serif font-semibold select-none mt-[5%] sm:mt-[10%] md:mt-[15%] tracking-[0.15em] uppercase"
-          style={{
-            background: 'linear-gradient(to bottom, #d2d2d2 20%, #ffffff 80%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            textShadow: '0 4px 15px rgba(0,0,0,0.05)',
-            letterSpacing: '0.01em',
-            fontVariationSettings: '"wght" 300',
-          }}
-        >
-          LAWYER
-        </motion.span>
-     </div>
-      
-      {/* Main content container */}
-      <div className="relative z-10 max-w-6xl mx-auto">
-        {/* Heading */}
-        <div className="text-center mb-4 sm:mb-6 md:mb-8">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-            transition={{ duration: 0.8 }}
-            className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-serif text-[#0B1926] leading-tight"
-          >
-            Expert Legal Solutions for<br />
-            Your Peace of Mind
-          </motion.h1>
+    // ✅ Use a warm page background so sections blend better
+    <section ref={ref} className="relative w-full bg-[#F7F5F2] overflow-hidden px-4 md:px-8 pt-8 pb-0">
+      {/* ✅ Hero Card (white) */}
+      <div className="relative max-w-6xl mx-auto bg-white rounded-3xl shadow-sm overflow-hidden">
+        {/* Soft background decorations */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-16 -left-16 w-72 h-72 rounded-full bg-[#BC5B44]/10 blur-2xl" />
+          <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-[#0B1926]/5 blur-2xl" />
         </div>
 
-        <div className="flex items-center justify-center relative">
-         
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="absolute left-0 top-0 text-left z-20 sm:hidden"
+        {/* ✅ Background big text (more subtle + no hard gradient) */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <motion.span
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
+            transition={{ duration: 1 }}
+            className="text-[16vw] sm:text-[18vw] md:text-[20vw] font-serif font-semibold select-none tracking-[0.10em] uppercase"
+            style={{
+              color: 'rgba(11,25,38,0.04)',
+              letterSpacing: '0.08em',
+              fontVariationSettings: '"wght" 300',
+            }}
           >
-            <p className="text-xs text-[#0B1926] font-medium">
-              we tip the<br />
-              scale in your<br />
-              favour.
+            LAWYER
+          </motion.span>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center px-6 sm:px-10 py-10 sm:py-12">
+          {/* LEFT */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            transition={{ duration: 0.7 }}
+            className="order-2 md:order-1"
+          >
+            {/* ✅ Must content (no reduction) */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#0B1926] leading-tight">
+              Advocate <span className="text-[#BC5B44]">Jimit Thakore</span>
+            </h1>
+
+            <h2 className="mt-3 text-base sm:text-lg text-[#0B1926]/80 font-medium">
+              Civil &amp; Property Disputes, Criminal Defence, Family Law
+            </h2>
+
+            <p className="mt-4 text-sm sm:text-base text-[#0B1926]/70 leading-relaxed max-w-xl">
+              Clear guidance, strong representation, and timely updates—so each step stays simple and transparent.
             </p>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="absolute left-0 hidden sm:block sm:bottom-80 md:bottom-80 lg:bottom-80 lg:left-10 text-left z-20"
-          >
-            <p className="text-sm md:text-base text-[#0B1926] font-medium">
-              we tip the<br />
-              scale in your<br />
-              favour.
-            </p>
-          </motion.div>
-
-          {/* Center image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative mt-8 sm:mt-0"
-          >
-            <img
-              src={justice1}
-              alt="Lady Justice"
-              className="h-[67vh] w-44 sm:w-56 md:w-72 lg:w-96 object-contain mx-auto"
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="absolute right-0 bottom-0 flex items-center z-20 sm:hidden"
-          >
-            <div className="text-right mr-1" onClick={() => window.location.href = 'tel:+918128257961'}>
-              <p className="text-xs text-[#0B1926] font-medium" >
-                First 15 min free<br />
-                Consultation
-              </p>
+            {/* Trust chips (compact, space-saving) */}
+            <div className="mt-5 flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#BC5B44]/10 text-[#BC5B44] text-xs sm:text-sm">
+                <Clock size={16} />
+                8+ Years Experience
+              </span>
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0B1926]/5 text-[#0B1926] text-xs sm:text-sm">
+                <BadgeCheck size={16} />
+                Bar Council Registered
+              </span>
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0B1926]/5 text-[#0B1926] text-xs sm:text-sm">
+                <Video size={16} />
+                In-person &amp; Online
+              </span>
             </div>
-            <span className="text-lg font-bold">&gt;</span>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="absolute right-0 hidden sm:flex sm:top-36 md:top-32 lg:top-24 items-center z-20"
-          >
-            <div className="text-right mr-2">
-              <a 
+            {/* ✅ Contact row (Option A)
+                Desktop: 1 row (Call → WhatsApp → Email)
+                Mobile: 2 rows (Call+WhatsApp) + Email full-width
+            */}
+            <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {/* Call */}
+              <a
                 href="tel:+918128257961"
-                className="text-sm md:text-base text-[#0B1926] font-medium block cursor-pointer hover:underline"
+                className="col-span-1 inline-flex items-center justify-center gap-2 rounded-xl border border-[#0B1926]/10 bg-white px-3 py-3 text-sm font-semibold text-[#0B1926] shadow-sm hover:shadow-md transition"
               >
-                First 15 min free<br />
-                Consultation
+                <Phone size={18} className="text-[#BC5B44]" />
+                <span className="whitespace-nowrap">+91 81282 57961</span>
+              </a>
+
+              {/* WhatsApp */}
+              <a
+                href="https://wa.me/918128257961"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="col-span-1 inline-flex items-center justify-center gap-2 rounded-xl border border-[#0B1926]/10 bg-white px-3 py-3 text-sm font-semibold text-[#0B1926] shadow-sm hover:shadow-md transition"
+              >
+                <MessageCircle size={18} className="text-[#BC5B44]" />
+                WhatsApp
+              </a>
+
+              {/* Email full width on mobile, single cell on desktop */}
+              <a
+                href="mailto:thakorejimit5619@gmail.com"
+                className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-2 rounded-xl border border-[#0B1926]/10 bg-white px-3 py-3 text-sm font-semibold text-[#0B1926] shadow-sm hover:shadow-md transition"
+                title="thakorejimit5619@gmail.com"
+              >
+                <Mail size={18} className="text-[#BC5B44]" />
+                <span className="truncate max-w-[220px] sm:max-w-[180px] md:max-w-[200px]">
+                  thakorejimit5619@gmail.com
+                </span>
               </a>
             </div>
-            <span className="text-xl font-bold">&gt;</span>
+
+            {/* Practice shortcuts */}
+            <div className="mt-6 flex flex-wrap gap-2">
+              <span className="px-3 py-2 rounded-xl bg-[#0B1926]/5 text-[#0B1926] text-xs sm:text-sm font-medium">
+                Family &amp; Divorce
+              </span>
+              <span className="px-3 py-2 rounded-xl bg-[#0B1926]/5 text-[#0B1926] text-xs sm:text-sm font-medium">
+                Civil &amp; Property
+              </span>
+              <span className="px-3 py-2 rounded-xl bg-[#0B1926]/5 text-[#0B1926] text-xs sm:text-sm font-medium">
+                Criminal Defence
+              </span>
+            </div>
+
+            {/* CTAs */}
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#BC5B44] px-6 py-3 text-white text-sm font-semibold shadow-md hover:shadow-lg hover:bg-[#a04b37] transition"
+              >
+                Request Consultation <ArrowRight size={18} />
+              </a>
+
+              <a
+                href="/service"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#BC5B44] px-6 py-3 text-[#BC5B44] text-sm font-semibold hover:bg-[#BC5B44]/5 transition"
+              >
+                View Practice Areas
+              </a>
+            </div>
+
+            {/* Disclaimer line */}
+            <p className="mt-4 text-xs text-[#0B1926]/50">
+              Information on this website is for general purposes and does not constitute legal advice.
+            </p>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="absolute right-2 sm:right-6 md:right-10 bottom-4 sm:bottom-10 md:bottom-20 z-20 hidden sm:block"
+          {/* RIGHT (portrait) */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="order-1 md:order-2 flex justify-center md:justify-end"
           >
-            <div className="relative w-16 sm:w-20 md:w-28 h-16 sm:h-20">
-              <svg 
-                viewBox="0 0 100 100" 
-                className="w-full h-full"
+            <div className="relative w-[280px] h-[340px] sm:w-[340px] sm:h-[420px] lg:w-[420px] lg:h-[520px]">
+              {/* ✅ Soft radial “halo” behind the person (no harsh edge) */}
+              <div
+                className="absolute inset-0 rounded-[999px] blur-[0.2px]"
                 style={{
-                  animation: 'spin 20s linear infinite'
+                  background:
+                    'radial-gradient(circle at 50% 45%, rgba(188,91,68,0.92), rgba(188,91,68,0.55))',
+                  transform: 'scale(0.84)',
                 }}
-              >
-                <defs>
-                  <path
-                    id="circlePath"
-                    d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-                    fill="none"
-                  />
-                </defs>
-                <text className="text-xs sm:text-sm md:text-base">
-                  <textPath href="#circlePath" className="fill-[#0B1926]">
-                    • Trusted Legal Guidance •
-                  </textPath>
-                </text>
-              </svg>
+              />
+
+              {/* ✅ portrait cutout */}
+              <img
+                src={profile}
+                alt="Advocate Jimit Thakore"
+                className="absolute inset-0 w-full h-full object-contain"
+                style={{
+                  // Helps remove “cutout looks pasted” feeling
+                  filter: 'drop-shadow(0 18px 40px rgba(11,25,38,0.20))',
+                }}
+              />
+
+              {/* subtle corner accents */}
+              <div className="absolute -left-8 top-10 w-20 h-20 rounded-full bg-[#BC5B44]/10 blur-xl" />
+              <div className="absolute -right-10 bottom-6 w-28 h-28 rounded-full bg-[#0B1926]/5 blur-xl" />
             </div>
           </motion.div>
-
         </div>
       </div>
-    </div>
+
+      {/* ✅ Seamless blend to next section background (fixes the “two background colors” hard cut) */}
+      <div className="max-w-6xl mx-auto">
+        <div className="h-10 w-full bg-gradient-to-b from-white to-[#F7F5F2]" />
+      </div>
+    </section>
   );
 };
 
