@@ -8,12 +8,9 @@ const Homepage = () => {
   return (
     <div className='mt-20'>
          {/* <HeroSection/>  */}
-        <LegalAdvisorHero/> 
-        <WhyChooseFAQ/>
-        <ClientsBenefits/> 
+        <LegalAdvisorHero/>
         <Ourservices/>
-        {/* <LegalServicesJourney/> */}
-       
+        <WhyChooseFAQ/>     
     </div>
   )
 }
