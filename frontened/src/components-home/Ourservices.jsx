@@ -62,8 +62,11 @@ const Ourservices = () => {
   ];
 
   return (
-    <section className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8 py-10">
-      <motion.div
+    <section
+  id="practice-areas"
+  className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8 py-10"
+>
+     <motion.div
         className="bg-[#EDEAD9] rounded-3xl p-8 md:p-12 relative overflow-hidden"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
