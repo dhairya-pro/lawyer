@@ -1,25 +1,21 @@
-import React from 'react';
-import { motion, useInView } from 'framer-motion';
-import {
-  Phone,
-  Mail,
-  MessageCircle, // WhatsApp-like icon (lucide)
-  BadgeCheck,
-  Clock,
-  Video,
-  ArrowRight
-} from 'lucide-react';
+import React from "react";
+import { motion, useInView } from "framer-motion";
+import { Phone, Mail, BadgeCheck, Clock, Video, ArrowRight } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa"; // ✅ Real WhatsApp icon
 
-import profile from '../assets/profile.png'; // ✅ Use your portrait cutout here
+import profile from "../assets/profile.png"; // ✅ Use your portrait cutout here
 
 const HeroSection = () => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    // ✅ Use a warm page background so sections blend better
-    <section ref={ref} className="relative w-full bg-[#F7F5F2] overflow-hidden px-4 md:px-8 pt-8 pb-0">
-      {/* ✅ Hero Card (white) */}
+    // ✅ Single, consistent background + seamless bottom fade
+    <section
+      ref={ref}
+      className="relative w-full overflow-hidden px-4 md:px-8 pt-8 pb-0 bg-[#F7F5F2]"
+    >
+      {/* ✅ Hero Card */}
       <div className="relative max-w-6xl mx-auto bg-white rounded-3xl shadow-sm overflow-hidden">
         {/* Soft background decorations */}
         <div className="absolute inset-0 pointer-events-none">
@@ -27,7 +23,7 @@ const HeroSection = () => {
           <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-[#0B1926]/5 blur-2xl" />
         </div>
 
-        {/* ✅ Background big text (more subtle + no hard gradient) */}
+        {/* Background big text */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <motion.span
             initial={{ opacity: 0, scale: 0.98 }}
@@ -35,8 +31,8 @@ const HeroSection = () => {
             transition={{ duration: 1 }}
             className="text-[16vw] sm:text-[18vw] md:text-[20vw] font-serif font-semibold select-none tracking-[0.10em] uppercase"
             style={{
-              color: 'rgba(11,25,38,0.04)',
-              letterSpacing: '0.08em',
+              color: "rgba(11,25,38,0.04)",
+              letterSpacing: "0.08em",
               fontVariationSettings: '"wght" 300',
             }}
           >
@@ -53,7 +49,7 @@ const HeroSection = () => {
             transition={{ duration: 0.7 }}
             className="order-2 md:order-1"
           >
-            {/* ✅ Must content (no reduction) */}
+            {/* Must content */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#0B1926] leading-tight">
               Advocate <span className="text-[#BC5B44]">Jimit Thakore</span>
             </h1>
@@ -66,7 +62,7 @@ const HeroSection = () => {
               Clear guidance, strong representation, and timely updates—so each step stays simple and transparent.
             </p>
 
-            {/* Trust chips (compact, space-saving) */}
+            {/* Trust chips */}
             <div className="mt-5 flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#BC5B44]/10 text-[#BC5B44] text-xs sm:text-sm">
                 <Clock size={16} />
@@ -82,10 +78,7 @@ const HeroSection = () => {
               </span>
             </div>
 
-            {/* ✅ Contact row (Option A)
-                Desktop: 1 row (Call → WhatsApp → Email)
-                Mobile: 2 rows (Call+WhatsApp) + Email full-width
-            */}
+            {/* Contact row (tight + aligned) */}
             <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
               {/* Call */}
               <a
@@ -96,25 +89,25 @@ const HeroSection = () => {
                 <span className="whitespace-nowrap">+91 81282 57961</span>
               </a>
 
-              {/* WhatsApp */}
+              {/* WhatsApp (real icon) */}
               <a
                 href="https://wa.me/918128257961"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="col-span-1 inline-flex items-center justify-center gap-2 rounded-xl border border-[#0B1926]/10 bg-white px-3 py-3 text-sm font-semibold text-[#0B1926] shadow-sm hover:shadow-md transition"
               >
-                <MessageCircle size={18} className="text-[#BC5B44]" />
+                <FaWhatsapp className="text-[#25D366] text-[18px]" />
                 WhatsApp
               </a>
 
-              {/* Email full width on mobile, single cell on desktop */}
+              {/* Email */}
               <a
                 href="mailto:thakorejimit5619@gmail.com"
                 className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-2 rounded-xl border border-[#0B1926]/10 bg-white px-3 py-3 text-sm font-semibold text-[#0B1926] shadow-sm hover:shadow-md transition"
                 title="thakorejimit5619@gmail.com"
               >
                 <Mail size={18} className="text-[#BC5B44]" />
-                <span className="truncate max-w-[220px] sm:max-w-[180px] md:max-w-[200px]">
+                <span className="truncate max-w-[240px] sm:max-w-[170px] md:max-w-[200px]">
                   thakorejimit5619@gmail.com
                 </span>
               </a>
@@ -148,10 +141,9 @@ const HeroSection = () => {
               >
                 View Practice Areas
               </a>
-
             </div>
 
-            {/* Disclaimer line */}
+            {/* Disclaimer */}
             <p className="mt-4 text-xs text-[#0B1926]/50">
               Information on this website is for general purposes and does not constitute legal advice.
             </p>
@@ -165,24 +157,27 @@ const HeroSection = () => {
             className="order-1 md:order-2 flex justify-center md:justify-end"
           >
             <div className="relative w-[280px] h-[340px] sm:w-[340px] sm:h-[420px] lg:w-[420px] lg:h-[520px]">
-              {/* ✅ Soft radial “halo” behind the person (no harsh edge) */}
+              {/* ✅ smoother halo */}
               <div
-                className="absolute inset-0 rounded-[999px] blur-[0.2px]"
+                className="absolute inset-0 rounded-[999px]"
                 style={{
                   background:
-                    'radial-gradient(circle at 50% 45%, rgba(188,91,68,0.92), rgba(188,91,68,0.55))',
-                  transform: 'scale(0.84)',
+                    "radial-gradient(circle at 50% 45%, rgba(188,91,68,0.95) 0%, rgba(188,91,68,0.55) 60%, rgba(188,91,68,0.18) 78%, rgba(188,91,68,0) 86%)",
+                  transform: "scale(0.88)",
                 }}
               />
 
-              {/* ✅ portrait cutout */}
+              {/* ✅ portrait with soft edge mask to reduce cutout border */}
               <img
                 src={profile}
                 alt="Advocate Jimit Thakore"
                 className="absolute inset-0 w-full h-full object-contain"
                 style={{
-                  // Helps remove “cutout looks pasted” feeling
-                  filter: 'drop-shadow(0 18px 40px rgba(11,25,38,0.20))',
+                  filter: "drop-shadow(0 18px 40px rgba(11,25,38,0.20))",
+                  WebkitMaskImage:
+                    "radial-gradient(circle at 50% 55%, rgba(0,0,0,1) 62%, rgba(0,0,0,0.92) 70%, rgba(0,0,0,0) 84%)",
+                  maskImage:
+                    "radial-gradient(circle at 50% 55%, rgba(0,0,0,1) 62%, rgba(0,0,0,0.92) 70%, rgba(0,0,0,0) 84%)",
                 }}
               />
 
@@ -194,9 +189,9 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* ✅ Seamless blend to next section background (fixes the “two background colors” hard cut) */}
+      {/* ✅ Seamless blend (removes hard border between hero + next section) */}
       <div className="max-w-6xl mx-auto">
-        <div className="h-10 w-full bg-gradient-to-b from-white to-[#F7F5F2]" />
+        <div className="h-12 w-full bg-gradient-to-b from-white to-[#F7F5F2]" />
       </div>
     </section>
   );
