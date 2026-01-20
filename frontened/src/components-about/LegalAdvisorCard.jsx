@@ -99,20 +99,70 @@ const LegalAdvisorHero = () => {
     >
       {/* ✅ IMPORTANT: Keep styles INSIDE component (works in React) */}
       <style>{`
-        @keyframes float {
-          0% { transform: translateY(0px); }
-          50% { transform: translateY(-14px); }
-          100% { transform: translateY(0px); }
+        @keyframes smoothFloat {
+          0%, 100% { 
+            transform: translateY(0px); 
+          }
+          50% { 
+            transform: translateY(-16px); 
+          }
         }
-        .animate-float {
-          animation: float 3.5s ease-in-out infinite;
+        
+        @keyframes elegantShadow {
+          0%, 100% { 
+            box-shadow: 0 20px 50px -12px rgba(194, 93, 69, 0.25),
+                        0 8px 16px -8px rgba(194, 93, 69, 0.3),
+                        0 0 0 1px rgba(255, 255, 255, 0.1);
+          }
+          50% { 
+            box-shadow: 0 30px 70px -12px rgba(194, 93, 69, 0.4),
+                        0 12px 28px -8px rgba(194, 93, 69, 0.45),
+                        0 0 0 1px rgba(255, 255, 255, 0.2);
+          }
         }
-        @keyframes pulseShadow {
-          0%, 100% { box-shadow: 0 8px 32px 0 rgba(194,93,69,0.16); }
-          50% { box-shadow: 0 16px 48px 0 rgba(194,93,69,0.28); }
+        
+        @keyframes subtleGlow {
+          0%, 100% { 
+            filter: drop-shadow(0 0 20px rgba(194, 93, 69, 0.3));
+          }
+          50% { 
+            filter: drop-shadow(0 0 30px rgba(194, 93, 69, 0.5));
+          }
         }
-        .animate-pulseShadow {
-          animation: pulseShadow 2.6s ease-in-out infinite;
+        
+        @keyframes breatheCircle {
+          0%, 100% { 
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% { 
+            transform: scale(1.08);
+            opacity: 0.85;
+          }
+        }
+        
+        .animate-smoothFloat {
+          animation: smoothFloat 4s ease-in-out infinite;
+        }
+        
+        .animate-elegantShadow {
+          animation: elegantShadow 4s ease-in-out infinite;
+        }
+        
+        .animate-subtleGlow {
+          animation: subtleGlow 4s ease-in-out infinite;
+        }
+        
+        .animate-breatheCircle {
+          animation: breatheCircle 4s ease-in-out infinite;
+        }
+        
+        .image-container {
+          transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .image-container:hover {
+          transform: scale(1.03);
         }
       `}</style>
 
@@ -258,32 +308,31 @@ const LegalAdvisorHero = () => {
           </p>
         </motion.div>
 
-        {/* RIGHT SIDE (your existing image design) */}
+        {/* RIGHT SIDE - Refined Image Animation */}
         <motion.div
           className="order-1 md:order-2 flex justify-center md:justify-end z-20"
-          initial={{ opacity: 0, y: 26 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.7, type: "spring" }}
+          transition={{ delay: 0.3, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <div className="relative flex items-center justify-center w-[280px] h-[320px] sm:w-[340px] sm:h-[380px] lg:w-[520px] lg:h-[520px]">
-            {/* Accent circle behind image */}
+            {/* Animated background circle */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-[85%] w-[85%] rounded-full bg-[#c25d45]" />
+              <div className="h-[85%] w-[85%] rounded-full bg-[#c25d45] animate-breatheCircle" />
             </div>
 
-            <motion.div
-              className="relative z-10 animate-float animate-pulseShadow rounded-full p-2 bg-white/20"
-              whileHover={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <img
-                src={about}
-                alt="Advocate Jimit Thakore"
-                className="w-[240px] h-[300px] sm:w-[290px] sm:h-[350px] lg:w-[420px] lg:h-[520px] object-contain object-center"
-                style={{ background: "transparent" }}
-                loading="eager"
-              />
-            </motion.div>
+            {/* Main image container with all animations */}
+            <div className="relative z-10 image-container animate-smoothFloat">
+              <div className="animate-elegantShadow animate-subtleGlow rounded-full p-2 bg-white/20 backdrop-blur-sm">
+                <img
+                  src={about}
+                  alt="Advocate Jimit Thakore"
+                  className="w-[240px] h-[300px] sm:w-[290px] sm:h-[350px] lg:w-[420px] lg:h-[520px] object-contain object-center rounded-full"
+                  style={{ background: "transparent" }}
+                  loading="eager"
+                />
+              </div>
+            </div>
           </div>
         </motion.div>
       </motion.div>

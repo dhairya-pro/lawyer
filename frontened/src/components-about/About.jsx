@@ -1,7 +1,7 @@
 import React from 'react'
 import LegalAdvisorCard from './LegalAdvisorCard'
 import TestimonialCarousel from './TestimonialCarousel'
-// import HeroSection from '../components-home/HeroSection'
+//import HeroSection from '../components-home/HeroSection'
 import ContentSlider from '../components-services/AnimationDiagram'
 import ProfessionalExcellenceSection from './ProfessionalExcellenceSection'
 import FieldsOfExpertiseSection from './FieldsOfExpertiseSection'
